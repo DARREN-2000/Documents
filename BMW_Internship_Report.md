@@ -1,15 +1,16 @@
 # BMW Group Data Science Internship Report
 
+## Title Page
+
+**Report Title:** Data Science Internship Report – BMW Group (Forming Simulation & Engineering Methods)  
 **Student:** Morris Darren Babu  
 **Matriculation Number:** 23206441  
-**Program:** M.Sc. Data Science (FAU Erlangen–Nürnberg)  
+**Program:** M.Sc. Data Science, FAU Erlangen–Nürnberg  
 **Company:** Bayerische Motoren Werke Aktiengesellschaft (BMW Group)  
 **Department/Team:** Umformsimulations-, Engineeringmethoden (Forming Simulation & Engineering Methods)  
-**Location:** Munich, Germany (FIZ – Research and Innovation Center)  
+**Location:** Munich, Germany (FIZ – Research & Innovation Center)  
 **Internship Period:** 14 October 2024 – 11 April 2025  
-**Supervision:**  
-- Dr. Janne Strauß‑Ehrl, Head of Forming Simulation & Engineering Methods  
-- Dr. Kerim Isik, Specialist  
+**Supervision:** Dr. Janne Strauß‑Ehrl (Head of Department), Dr. Kerim Isik (Specialist)  
 
 ---
 
@@ -17,184 +18,298 @@
 
 This report documents my six‑month data‑science internship at BMW Group in the Forming Simulation & Engineering
 Methods department in Munich (14 October 2024 to 11 April 2025). The internship exceeded the minimum duration
-of four weeks and was fully data‑science related. My responsibilities focused on applied machine learning, data
-analysis, and model evaluation for manufacturing and engineering use cases.
+of four weeks and was fully aligned with data‑science module requirements. My responsibilities centered on
+applied machine learning, data engineering, model evaluation, and deployment for manufacturing and engineering
+use cases.
 
-Key activities included analyzing and tuning a Convolutional Recurrent Neural Network (CRNN) for the project
-“AI‑based surface analysis,” building keyword search and classification scripts for manufacturing‑relevant data,
-designing evaluation question sets for a Large Language Model (LLM) application, testing the LLM for answer
-accuracy and refining system prompts, and developing a web application for ingesting geometric meshes (STL data).
-The work combined practical data‑science methods, model analysis, and deployment‑oriented engineering to support
-industrial applications.
+Key contributions included deploying a Convolutional Recurrent Neural Network (CRNN) surface‑detection model on
+AWS SageMaker, engineering a semantic‑segmentation pre‑processing pipeline to reduce false positives, building
+RAG‑based LLM workflows for internal documentation with vector search and prompt optimization, optimizing PySpark
+pipelines on AWS EMR for surface defect data with QuickSight reporting, and developing a Django web application for
+model inference and STL mesh ingestion. The results supported improved data accessibility, increased model
+precision, and more scalable workflows for engineering teams.
 
 ---
 
 ## Company and Team Overview
 
-BMW Group is a global automotive manufacturer that invests heavily in digitalization and data‑driven engineering.
-The Research and Innovation Center (FIZ) in Munich hosts cross‑functional teams that develop new technologies for
-product design and manufacturing. I worked in the Forming Simulation & Engineering Methods department, which
-focuses on simulation techniques, data‑supported engineering workflows, and AI‑enabled analysis for manufacturing
-processes.
+BMW Group is a global automotive manufacturer with a strong focus on digital transformation, data‑driven
+engineering, and AI‑enabled quality assurance. The Research and Innovation Center (FIZ) in Munich brings together
+engineering and data teams that develop advanced technologies for product development and manufacturing quality.
 
-The department’s objective is to accelerate development cycles and improve manufacturing quality by combining
-simulation, data analytics, and machine‑learning models. My internship contributed to these goals by supporting
-AI‑based surface analysis and LLM‑driven knowledge workflows.
+I worked in the **Forming Simulation & Engineering Methods** department. This team supports manufacturing
+engineering through simulation, applied data analytics, and AI‑assisted inspection of component surfaces. The
+department’s focus includes:
+
+- Improving surface inspection workflows using machine learning.
+- Supporting manufacturing data pipelines and analytics.
+- Evaluating emerging AI/LLM capabilities for engineering knowledge systems.
+- Building practical tools that allow engineers to access AI results efficiently.
+
+My internship aligned directly with these priorities through model deployment, data workflow optimization, and
+application prototyping.
 
 ---
 
 ## Internship Objectives and Scope
 
-The internship aimed to:
+The internship objectives were defined around enabling data‑driven engineering decisions and improving the
+scalability of AI workflows for surface analysis. The scope included:
 
-1. Improve an existing AI model (CRNN) used in surface analysis by analyzing parameters and supporting
-   implementation optimization.
-2. Enable faster data exploration and classification for manufacturing‑relevant datasets.
-3. Establish a reliable evaluation workflow for an LLM application, including prompt refinement.
-4. Provide a prototype web application for ingesting and viewing geometric mesh data (STL).
+1. Deploying and validating an existing CRNN model for surface scratch detection in a production‑oriented
+   environment.
+2. Reducing false positives through additional data‑science techniques such as semantic segmentation.
+3. Building a knowledge‑retrieval workflow using LLMs (RAG and vector search) for internal documentation.
+4. Optimizing data processing pipelines for defect data and enabling reporting dashboards.
+5. Developing a stable web‑based interface for model inference and STL mesh ingestion.
+6. Supporting automation tasks and assisting a PhD researcher with graph‑neural‑network (GNN)‑related workflows.
 
-These objectives placed my work directly in the field of data science, covering machine‑learning model evaluation,
-data preparation, algorithmic analysis, and data‑driven application development.
+These objectives ensured the internship was consistently data‑science focused and directly applicable to
+engineering processes at BMW.
 
 ---
 
 ## Detailed Tasks and Responsibilities
 
-### 1) CRNN Model Analysis for “AI‑Based Surface Analysis”
+### 1) CRNN Surface‑Analysis Model Deployment and Evaluation
 
-The department maintained a Convolutional Recurrent Neural Network (CRNN) for analyzing surface‑related data.
-My responsibility was to analyze the existing model and its relevant parameters to improve the AI model’s
-implementation. This included:
+**Background:** The department maintained a CRNN model (originally developed by a PhD candidate) for detecting
+surface scratches. The model was accurate on standard cases but produced false positives for specific edge cases.
 
-- Reviewing the structure of the CRNN to understand how spatial (convolutional) and sequential (recurrent)
-  components were integrated.
-- Identifying parameter settings and configuration decisions that influenced model behavior and performance.
-- Supporting the team in documenting parameter impacts to improve reproducibility and enable future tuning.
+**Key tasks and actions:**
 
-This work required careful interpretation of model outputs and a data‑science mindset focused on
-model‑quality assessment.
+- **Model exploration and evaluation:** I reviewed the CRNN architecture and tested inference outputs on various
+  surface image cases to identify the conditions that triggered false positives.
+- **AWS deployment:** I deployed the CRNN model on **AWS SageMaker**, using **S3** for model artifacts and
+  datasets. An inference endpoint was exposed via API to validate latency and integration requirements.
+- **Edge‑case analysis:** I attempted retraining on an Ubuntu compute node but found it computationally expensive
+  and time‑consuming for the targeted edge cases.
+- **Semantic segmentation pipeline:** To reduce false positives without heavy retraining, I designed a
+  **semantic‑segmentation pre‑processing pipeline**. The pipeline split large images into smaller tiles to
+  focus the CRNN on localized regions. This approach significantly reduced false positives while maintaining
+  detection accuracy.
 
-### 2) Keyword Search and Classification Scripts for Manufacturing Data
+**Outcome:** The deployment verified that the model could be served via API, and the segmentation pipeline reduced
+false positives for edge cases while avoiding costly retraining.
 
-Manufacturing‑relevant datasets often combine structured and unstructured information. I developed
-keyword search and classification scripts to:
+**Diagram – Surface Analysis Pipeline:**
 
-- Extract and tag relevant information from manufacturing data collections.
-- Enable faster discovery of patterns, defects, or recurring issues.
-- Support downstream analytics by producing structured, searchable outputs.
+```mermaid
+graph LR
+  A[Surface Image Data] --> B[Semantic Segmentation
+(tile-based preprocessing)]
+  B --> C[CRNN Surface Detection Model]
+  C --> D[Inference API Endpoint
+(AWS SageMaker)]
+  D --> E[Inspection Results
+& QA Feedback]
+```
 
-These scripts created a bridge between raw data and analytical workflows, improving data accessibility for
-engineering teams.
+---
 
-### 3) LLM Evaluation: Question Set Design and Prompt Refinement
+### 2) LLM RAG System for Internal Documentation
 
-An internal LLM application was being tested for use in engineering knowledge workflows. My tasks were:
+**Background:** The team explored an LLM‑based assistant to retrieve information from internal documentation.
+Initial experiments were done locally, but later the project shifted to **GAIA**, which provided an application
+framework for deploying LLM workflows.
 
-- Preparing a structured question catalog to evaluate the LLM’s response quality.
-- Testing the LLM application for answer accuracy.
-- Adjusting system prompts to increase response relevance and reduce errors.
+**Key tasks and actions:**
 
-This work required a combination of data‑science evaluation mindset, structured testing, and prompt‑engineering
-skills.
+- **RAG architecture:** I engineered a retrieval‑augmented generation (RAG) workflow based on document chunking,
+  embeddings, and vector search.
+- **Indexing and retrieval:** Internal documents were split into consistent chunks and indexed to support
+  semantic retrieval for engineering queries.
+- **Prompt and parameter optimization:** Accuracy was initially low, so I iteratively tuned prompts and optimized
+  sampling parameters (e.g., **top‑p**, **top‑k**, and model selection).
+- **Precision improvements:** Through tuning and controlled testing, I improved system precision by **12%** on
+  internal validation queries.
 
-### 4) Web Application for Geometric Mesh (STL) Ingestion
+**Outcome:** The resulting RAG workflow provided a structured approach to internal knowledge retrieval and
+highlighted how prompt and parameter control directly influence accuracy for engineering documentation.
 
-I created a web application to ingest geometric mesh files (STL data) to support engineering analysis and
-downstream workflows. The application allowed:
+**Diagram – RAG Workflow:**
 
-- Upload and parsing of STL files.
-- Structured ingestion of mesh data for future analysis or visualization steps.
+```mermaid
+graph TD
+  A[Internal Documents] --> B[Chunking & Cleaning]
+  B --> C[Embedding Generation]
+  C --> D[Vector Index]
+  E[User Query] --> F[Retriever]
+  F --> D
+  F --> G[Context Assembly]
+  G --> H[LLM Response]
+```
 
-This task connected data ingestion with practical engineering workflows and supported future data‑science
-processing.
+---
+
+### 3) PySpark Pipeline Optimization for Defect Data
+
+**Background:** Surface defect data needed integration into a reporting‑ready schema for analytics and
+visualization. This required reliable ingestion and transformation pipelines.
+
+**Key tasks and actions:**
+
+- **Pipeline optimization:** I optimized **PySpark pipelines on AWS EMR** to process surface defect data at scale.
+- **Schema restructuring:** I restructured data schemas to support consistent defect categorization and reporting.
+- **Integration of new defect records:** Additional defect records were integrated into the pipeline to improve
+  data completeness.
+- **QuickSight reporting:** Curated data outputs were prepared for **AWS QuickSight** dashboards to support
+  stakeholder visibility.
+
+**Outcome:** The optimized pipeline improved data freshness, consistency, and reporting readiness for defect
+analytics.
+
+**Diagram – Defect Data Pipeline:**
+
+```mermaid
+graph LR
+  A[Raw Defect Records] --> B[S3 Landing Zone]
+  B --> C[EMR PySpark Jobs]
+  C --> D[Curated Defect Dataset]
+  D --> E[QuickSight Dashboards]
+```
+
+---
+
+### 4) Django Web Application for Model Inference and STL Ingestion
+
+**Background:** The CRNN model required a stable user interface for engineers to upload data and view results.
+I evaluated multiple frameworks to identify a reliable deployment option.
+
+**Key tasks and actions:**
+
+- **Framework evaluation:** I tested **Gradio**, **Streamlit**, and **Flask** but observed timeout and memory
+  limitations during heavy inference workloads.
+- **Django selection:** Django provided more reliable performance under longer inference durations and larger
+  payloads.
+- **Prototype development:** I built a **Django web interface** with UI/UX improvements for clarity and
+  interaction, enabling users to submit data and review outputs.
+- **STL ingestion:** The application also supported **STL mesh ingestion** with document chunking pipelines,
+  improving file handling performance by **8%**.
+
+**Outcome:** A stable prototype improved inference accessibility for engineers and supported ingestion of
+geometric mesh data for downstream analysis.
+
+**Diagram – Web Application Architecture:**
+
+```mermaid
+graph LR
+  U[Engineer/User] --> W[Django Web Interface]
+  W --> A[Inference API]
+  A --> S[SageMaker Endpoint]
+  S --> R[Results & Visual Outputs]
+  W --> M[STL Mesh Ingestion]
+```
+
+---
+
+### 5) Automation Tasks and GNN‑Related Support
+
+Beyond the main projects, I contributed to broader team productivity:
+
+- **Automation tasks:** I scripted repetitive data handling and reporting steps, reducing manual effort for the
+  team.
+- **PhD support (GNN):** I assisted a PhD researcher with automation and data preparation tasks for
+  graph‑neural‑network experiments, supporting model experimentation and pipeline reliability.
+- **Exploratory GNN work:** I conducted personal research into GNN methods to better support graph‑structured
+  data workflows.
+
+These activities strengthened my understanding of how data‑science research and production workflows intersect.
 
 ---
 
 ## Methods, Tools, and Data Workflow
 
-While specific internal tools are proprietary, the work relied on standard data‑science methods and engineering
-practices:
+### Methods
 
-- **Machine Learning Analysis:** Parameter review and evaluation of a CRNN model used for surface analysis.
-- **Data Preparation & Classification:** Keyword search and categorization scripts for manufacturing‑relevant
-  datasets.
-- **LLM Evaluation & Prompt Engineering:** Controlled test question sets, accuracy checking, and systematic
-  prompt refinement.
-- **Data Ingestion & Application Development:** Web application to parse and ingest STL mesh data for engineering
-  workflows.
+- **Machine learning model evaluation** (CRNN validation and parameter exploration).
+- **Semantic segmentation** to reduce false positives in image‑based defect detection.
+- **Retrieval‑augmented generation (RAG)** with document chunking, embeddings, and vector search.
+- **Prompt and parameter optimization** for LLM performance (top‑p, top‑k, model selection).
+- **Scalable data processing** with distributed PySpark pipelines.
+- **Applied web development** for inference and data ingestion tools.
+
+### Tools and Technology Stack
+
+- **AWS:** SageMaker, S3, EMR, QuickSight
+- **Data Processing:** PySpark
+- **Application Development:** Django, REST‑style inference endpoints
+- **ML/AI Workflows:** CRNN, semantic segmentation pipeline, RAG, vector search
+- **General:** Python, Linux/Ubuntu environment
 
 ### Data Sources
 
-The work used manufacturing‑relevant datasets, surface‑analysis data, and geometric mesh files (STL). The tasks
-required careful handling of technical engineering data as well as the organization of unstructured or
-semi‑structured information.
+- **Surface image datasets** for scratch detection.
+- **Manufacturing defect records** and quality‑control datasets.
+- **STL geometric meshes** for engineering data ingestion.
+- **Internal documentation** for LLM knowledge retrieval.
 
 ### Workflow Overview
 
-1. **Data collection/ingestion:** Importing manufacturing data or STL meshes into a processing environment.
-2. **Pre‑processing and structuring:** Cleaning and preparing data for analysis or classification.
-3. **Model analysis and evaluation:** Reviewing CRNN parameters, testing LLM outputs, and documenting findings.
-4. **Iterative refinement:** Updating prompts, scripts, or configurations based on evaluation results.
-5. **Delivery:** Providing scripts, evaluation outputs, and prototypes to the department.
+1. **Data ingestion** into S3 or local processing environments.
+2. **Pre‑processing and structuring** (segmentation, chunking, schema normalization).
+3. **Model inference/evaluation** for CRNN and LLM pipelines.
+4. **Pipeline optimization** for scalable defect‑data processing.
+5. **Delivery to stakeholders** through web interfaces and dashboards.
 
 ---
 
 ## Results, Outputs, and Impact
 
-The internship produced several concrete outputs:
+Key results from the internship include:
 
-- **CRNN analysis documentation** that supported AI model implementation improvements in the surface analysis
-  project.
-- **Keyword search and classification scripts** that improved data discovery and structured analysis for
-  manufacturing datasets.
-- **An LLM evaluation question catalog** and refined system prompts, resulting in a more consistent response
-  behavior during testing.
-- **A functional web application for STL ingestion**, enabling standardized handling of geometric meshes.
+- **Reduced false positives** in surface scratch detection by introducing a semantic‑segmentation pipeline before
+  CRNN inference.
+- **API‑based deployment** of the CRNN model on AWS SageMaker, enabling scalable inference.
+- **12% precision improvement** in LLM‑based knowledge retrieval through RAG optimization and prompt tuning.
+- **8% faster STL ingestion** through document‑chunking pipelines and Django integration.
+- **Optimized PySpark pipelines** for defect data, improving reporting consistency in QuickSight.
 
-These outputs increased the efficiency of engineering data workflows, improved the reliability of AI‑based
-analysis, and enabled more structured evaluation of LLM tools in the department.
+These outputs enhanced the reliability of AI‑based inspection workflows and supported data‑driven decision
+making for manufacturing quality.
 
 ---
 
 ## Skills Gained and Reflection
 
-The internship strengthened my data‑science competencies in an industrial setting:
+This internship strengthened my data‑science expertise in an industrial environment:
 
-- **Model analysis and evaluation:** Understanding how CRNN configurations affect performance for
-  surface‑analysis use cases.
-- **Data preparation and text processing:** Translating manufacturing datasets into structured information for
-  analysis.
-- **LLM evaluation and prompt engineering:** Designing evaluation questions and refining prompts to improve
-  accuracy.
-- **Applied software development:** Building a lightweight web application for technical data ingestion.
-- **Professional collaboration:** Working with specialists and engineering stakeholders to align data‑science
-  outputs with practical needs.
+- **Applied ML engineering:** I gained practical experience deploying models on AWS and validating them against
+  real manufacturing data.
+- **Data‑driven problem solving:** Instead of expensive retraining, I designed a segmentation‑based solution to
+  reduce false positives efficiently.
+- **LLM workflow development:** I learned how prompt engineering, vector search, and parameter tuning influence
+  accuracy in RAG systems.
+- **Scalable data engineering:** I improved my ability to optimize PySpark pipelines for large datasets.
+- **Product‑oriented development:** I built a Django application that translated model outputs into a usable
+  interface for engineers.
 
-Overall, the internship deepened my ability to apply data‑science methods in real‑world engineering workflows and
-confirmed my interest in AI‑enabled manufacturing.
+Overall, the internship reinforced my ability to connect research‑level ML models with production‑ready data
+pipelines and user‑facing tools.
 
 ---
 
 ## Module Requirement Mapping
 
-The internship fulfills the module requirements because it lasted **approximately six months** and involved
-data‑science‑related tasks throughout.
+The internship fulfills module requirements as it lasted **approximately six months** and consisted of
+continuous data‑science‑related tasks.
 
 | Task | Data‑Science Relevance | Evidence |
 | --- | --- | --- |
-| CRNN model analysis for AI‑based surface analysis | Machine learning model evaluation and parameter analysis | BMW internship certificate |
-| Keyword search and classification scripts | Data preprocessing, text classification, information retrieval | BMW internship certificate |
-| LLM evaluation and prompt refinement | Model evaluation, prompt engineering, QA testing | BMW internship certificate |
-| STL ingestion web application | Data ingestion and processing pipeline for engineering data | BMW internship certificate |
+| CRNN deployment & semantic segmentation | ML deployment, inference validation, error reduction | BMW internship certificate + report details |
+| RAG system with vector search | NLP, embeddings, retrieval evaluation, prompt tuning | Report + internal project documentation |
+| PySpark EMR pipeline optimization | Large‑scale data processing, schema design, analytics | Report + pipeline outputs |
+| Django inference & STL ingestion app | Data ingestion, API integration, applied ML tooling | Report + prototype screenshots (if required) |
+| Automation & GNN support | Data prep automation, experimental ML workflows | Report narrative |
 
 ---
 
 ## Conclusion and Approval Request
 
 My internship at BMW Group (14 October 2024 to 11 April 2025) was a continuous six‑month placement in a
-data‑science‑focused engineering department. The tasks were directly related to machine learning, data analysis,
-and AI evaluation. I respectfully request that the examination committee recognizes this internship as fulfilling
-the technical qualification/module requirement.
+specialized data‑science and engineering department. The tasks were directly related to machine learning, data
+analysis, large‑scale data processing, and AI/LLM evaluation. I respectfully request that the examination
+committee recognizes this internship as fulfilling the technical qualification/module requirement.
 
 ---
 
@@ -204,4 +319,4 @@ the technical qualification/module requirement.
    department, and task list.
 2. **2025-02-05 Immatrikulationsbescheinigung.pdf** – FAU enrollment certificate with matriculation number and
    program.
-
+3. **Optional (if required):** anonymized screenshots/figures of the Django interface or pipeline diagrams.
