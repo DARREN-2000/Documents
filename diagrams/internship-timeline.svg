@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
+  <style>
+    .line { stroke: #374151; stroke-width: 4; }
+    .dot { fill: #1f2937; }
+    .label { font: 13px Arial, sans-serif; fill: #111827; }
+  </style>
+  <line class="line" x1="60" y1="120" x2="840" y2="120" />
+
+  <circle class="dot" cx="120" cy="120" r="8" />
+  <text class="label" x="80" y="90">Oct–Nov</text>
+  <text class="label" x="60" y="150">CRNN review</text>
+
+  <circle class="dot" cx="320" cy="120" r="8" />
+  <text class="label" x="285" y="90">Dec</text>
+  <text class="label" x="245" y="150">Segmentation & API</text>
+
+  <circle class="dot" cx="520" cy="120" r="8" />
+  <text class="label" x="480" y="90">Jan–Feb</text>
+  <text class="label" x="450" y="150">RAG + Prompt Tuning</text>
+
+  <circle class="dot" cx="700" cy="120" r="8" />
+  <text class="label" x="660" y="90">Mar</text>
+  <text class="label" x="610" y="150">EMR & Django Prototype</text>
+
+  <circle class="dot" cx="820" cy="120" r="8" />
+  <text class="label" x="790" y="90">Apr</text>
+  <text class="label" x="760" y="150">Final reports</text>
+</svg>

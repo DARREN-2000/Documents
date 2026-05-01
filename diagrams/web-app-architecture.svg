@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240">
+  <style>
+    .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 10; ry: 10; }
+    .title { font: 14px Arial, sans-serif; fill: #111827; }
+    .arrow { stroke: #374151; stroke-width: 2; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+    </marker>
+  </defs>
+
+  <rect class="box" x="30" y="70" width="150" height="80" />
+  <text class="title" x="60" y="105">Engineer/User</text>
+
+  <rect class="box" x="220" y="70" width="170" height="80" />
+  <text class="title" x="235" y="105">Django Web App</text>
+
+  <rect class="box" x="430" y="40" width="170" height="80" />
+  <text class="title" x="455" y="75">Inference API</text>
+  <text class="title" x="470" y="95">Gateway</text>
+
+  <rect class="box" x="430" y="140" width="170" height="80" />
+  <text class="title" x="465" y="175">STL Ingestion</text>
+
+  <rect class="box" x="640" y="40" width="180" height="80" />
+  <text class="title" x="680" y="75">SageMaker</text>
+  <text class="title" x="690" y="95">Endpoint</text>
+
+  <rect class="box" x="640" y="140" width="180" height="80" />
+  <text class="title" x="675" y="175">Processed Data</text>
+
+  <line class="arrow" x1="180" y1="110" x2="220" y2="110" />
+  <line class="arrow" x1="390" y1="110" x2="430" y2="80" />
+  <line class="arrow" x1="390" y1="110" x2="430" y2="180" />
+  <line class="arrow" x1="600" y1="80" x2="640" y2="80" />
+  <line class="arrow" x1="600" y1="180" x2="640" y2="180" />
+</svg>

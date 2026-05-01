@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
+  <style>
+    .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 10; ry: 10; }
+    .title { font: 14px Arial, sans-serif; fill: #111827; }
+    .arrow { stroke: #374151; stroke-width: 2; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="60" width="150" height="80" />
+  <text class="title" x="45" y="95">Surface Images</text>
+
+  <rect class="box" x="200" y="60" width="170" height="80" />
+  <text class="title" x="215" y="90">Semantic Segmentation</text>
+  <text class="title" x="230" y="110">(tile-based)</text>
+
+  <rect class="box" x="400" y="60" width="150" height="80" />
+  <text class="title" x="430" y="95">CRNN Model</text>
+
+  <rect class="box" x="580" y="60" width="160" height="80" />
+  <text class="title" x="595" y="90">SageMaker API</text>
+  <text class="title" x="612" y="110">Endpoint</text>
+
+  <rect class="box" x="770" y="60" width="110" height="80" />
+  <text class="title" x="788" y="95">Results</text>
+
+  <line class="arrow" x1="170" y1="100" x2="200" y2="100" />
+  <line class="arrow" x1="370" y1="100" x2="400" y2="100" />
+  <line class="arrow" x1="550" y1="100" x2="580" y2="100" />
+  <line class="arrow" x1="740" y1="100" x2="770" y2="100" />
+</svg>
