@@ -21,38 +21,40 @@
 3. Company and Team Overview  
 4. Internship Objectives and Scope  
 5. Internship Timeline  
-6. Project Work and Technical Contributions  
+6. Daily Workflow and Responsibilities  
+7. Project Work and Technical Contributions  
    - CRNN Deployment & False‑Positive Reduction  
    - LLM RAG System for Internal Documentation  
    - PySpark Pipeline Optimization for Defect Data  
    - Django Web Application & STL Ingestion  
    - Automation and GNN‑Related Support  
-7. Methods, Tools, and Data Workflow  
-8. Challenges and Mitigation  
-9. Collaboration and Communication  
-10. Results, Outputs, and Impact  
-11. Skills Gained and Reflection  
-12. Future Work and Recommendations  
-13. Module Requirement Mapping  
-14. Conclusion and Approval Request  
-15. Attachments  
+8. Methods, Tools, and Data Workflow  
+9. Evaluation and Validation Approach  
+10. Challenges and Mitigation  
+11. Data Governance and Documentation Standards  
+12. Collaboration and Communication  
+13. Results, Outputs, and Impact  
+14. Skills Gained and Reflection  
+15. Future Work and Recommendations  
+16. Module Requirement Mapping  
+17. Conclusion and Approval Request  
+18. Attachments  
 
 ---
 
 ## Executive Summary
 
-This report documents my six‑month data‑science internship at BMW Group in the Forming Simulation & Engineering
-Methods department in Munich (14 October 2024 to 11 April 2025). The internship exceeded the minimum duration
-of four weeks and remained consistently aligned with data‑science requirements. I worked on applied machine
-learning, data engineering, model evaluation, and deployment tasks that directly supported manufacturing quality
-and engineering workflows.
+This report covers my six‑month data‑science internship at BMW Group in the Forming Simulation & Engineering
+Methods department in Munich (14 October 2024 to 11 April 2025). The placement exceeded the required duration and
+remained fully aligned with data‑science learning objectives. My work focused on applied machine learning, data
+engineering, model evaluation, and deployment tasks that supported manufacturing quality and engineering teams.
 
 Key contributions included deploying a Convolutional Recurrent Neural Network (CRNN) surface‑detection model on
 AWS SageMaker, creating a semantic‑segmentation pre‑processing pipeline to reduce false positives, building a
 retrieval‑augmented generation (RAG) workflow for internal documentation with prompt and parameter tuning,
 optimizing PySpark pipelines on AWS EMR for surface‑defect data and QuickSight dashboards, and developing a Django
-web application to expose model inference and STL mesh ingestion. The combined outcomes improved model precision,
-reduced manual inspection effort, and delivered more scalable, user‑friendly tools for engineering teams.
+web application for model inference and STL mesh ingestion. These outcomes improved model precision, reduced
+manual inspection effort, and provided scalable, user‑friendly tools for engineers.
 
 ---
 
@@ -69,6 +71,9 @@ was heterogeneous, and results needed to be interpretable for engineering stakeh
 important to prioritize robust, production‑friendly solutions rather than experimental approaches alone. My role
 focused on bridging those constraints by delivering applied, measurable improvements while also maintaining
 research‑level rigor.
+
+On a personal level, I aimed to connect technical outputs with practical decisions on the shop‑floor side of the
+organization. That meant translating model performance into insights that engineers could trust and act on.
 
 ---
 
@@ -117,6 +122,31 @@ The following timeline summarizes the progression of the internship and highligh
 
 ---
 
+**Text fallback (timeline summary):**
+
+| Period | Focus |
+| --- | --- |
+| Oct–Nov | CRNN model review and baseline evaluation |
+| Dec | Segmentation pipeline and API deployment |
+| Jan–Feb | RAG workflow design, tuning, and evaluation |
+| Mar | EMR pipeline optimization and Django prototype |
+| Apr | Final reporting, documentation, and handoff |
+
+---
+
+## Daily Workflow and Responsibilities
+
+My week typically blended two modes of work. In one mode, I ran experiments and evaluations (model inference,
+error analysis, and prompt tuning). In the other, I focused on engineering deliverables such as pipeline updates,
+deployment steps, and documentation. This combination kept progress visible to stakeholders while allowing time
+for deeper analysis.
+
+I kept short task logs, shared results in regular check‑ins, and adjusted priorities based on feedback from
+engineers and supervisors. This rhythm helped me deliver incremental improvements rather than only end‑of‑project
+outputs.
+
+---
+
 ## Project Work and Technical Contributions
 
 ### 1) CRNN Surface‑Analysis Model Deployment & False‑Positive Reduction
@@ -154,6 +184,8 @@ pipeline reduced false positives for edge cases and enabled more reliable usage 
 
 ![Surface analysis pipeline](diagrams/surface-analysis-pipeline.svg)
 
+*Text fallback:* Surface images → Semantic segmentation (tile‑based) → CRNN model → SageMaker API endpoint → Results & QA feedback.
+
 ---
 
 ### 2) LLM RAG System for Internal Documentation
@@ -185,6 +217,8 @@ questions.
 
 ![RAG workflow](diagrams/rag-workflow.svg)
 
+*Text fallback:* Internal documents → Chunking & cleaning → Embedding generation → Vector index; user query → Retriever → Context assembly → LLM response.
+
 ---
 
 ### 3) PySpark Pipeline Optimization for Defect Data
@@ -215,6 +249,8 @@ reporting foundation for manufacturing quality.
 
 ![Defect data pipeline](diagrams/defect-data-pipeline.svg)
 
+*Text fallback:* Raw defect records → S3 landing zone → EMR PySpark jobs → Curated dataset → QuickSight dashboards.
+
 ---
 
 ### 4) Django Web Application for Model Inference & STL Ingestion
@@ -242,6 +278,8 @@ an extensible base for future deployment.
 **Web Application Architecture (rendered diagram):**
 
 ![Web application architecture](diagrams/web-app-architecture.svg)
+
+*Text fallback:* Engineer/User → Django web interface → (Inference API → SageMaker endpoint → Results) and (STL ingestion → Processed data).
 
 ---
 
